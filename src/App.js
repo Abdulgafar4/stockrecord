@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from "react-router-dom";
+import "./App.css";
+import Authenticated from "./Components/Authenticated";
+// import Home from "./Home";
+import Dashboard from "./Pages/Dashboard";
+import Login from "./Pages/Login";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      <Route exact path="/">
+        <Authenticated Authenticated>
+          <Dashboard />
+        </Authenticated>
+      </Route>
+      <Route exact path="/login">
+        <Authenticated nonAuthenticated={true}>
+          <Login />
+        </Authenticated>
+      </Route>
+      <Route exact path="*" render={() => "404 Not Found"} />
+    </Switch>
   );
 }
 
